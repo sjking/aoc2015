@@ -1,0 +1,8 @@
+.DS_Store
+venv
+.idea
+*.cabal
+stack.yaml.lock
+.stack*
+__pycache__
+__init__
