@@ -1,12 +1,30 @@
 import os
 import time
+from functools import reduce
+import sys
+sys.setrecursionlimit(100_000)
 
 infile = "input"
 path = os.path.dirname(os.path.realpath(__file__))
 
 
 def parse_line(line):
-    pass
+    return list(line)
+
+
+def solve(data):
+    return reduce(lambda acc, item: acc+1 if item == '(' else acc-1, data, 0)
+
+
+def solve2(data):
+    def find_floor(i, curr):
+        if i >= len(data):
+            raise Exception
+        nxt = curr+1 if data[i] == '(' else curr-1
+        if nxt == -1:
+            return i+1
+        return find_floor(i+1, nxt)
+    return find_floor(0, 0)
 
 
 def main(infile=infile):
@@ -15,7 +33,7 @@ def main(infile=infile):
     with open(input_file, 'r') as f:
         for line in f:
             line = line.strip()
-            data = parse_line(line, data)
+            data = parse_line(line)
     start = time.monotonic()
     result = [None] * 2
     result[0] = solve(data)
